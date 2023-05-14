@@ -10,6 +10,7 @@ from datetime import datetime
 from pydub import AudioSegment
 from fpdf import FPDF
 
+file_name = "十以内加减和表内乘法_间隔0.5秒_语速1.2倍"
 count_per_practice = 30
 total_practice = 10
 
@@ -41,7 +42,7 @@ def num2chinese(num):
 
 
 def audio_out(audio_file, audio_list, rand_a, rand_b, rand_op):
-    duration = 1000
+    duration = 500
     if rand_op == "+":
         op_voice = "加"
 #       if (rand_a > 10) and (rand_b > 10):
@@ -82,7 +83,7 @@ def print_out(out, rand_a, rand_b, rlt, rand_op):
 
 # Initialize tts engine
 engine = pyttsx3.init()
-engine.setProperty('rate', 100)
+engine.setProperty('rate', 120)
 engine.setProperty('engine', 'sapi5')
 engine.setProperty('zh-CH', 'voice_ked_dengxuetong.pronunciation_dict={"乘": "cheng"}')
 
@@ -105,7 +106,7 @@ while(1):
         practice_initialized = 1
         time_str = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         out_file = open("out_%s.txt"%(time_str), "w")
-        audio_file = "十以内加减和表内乘法_间隔1秒_%s.mp3"%(time_str)
+        audio_file = "%s_%s.mp3"%(file_name, time_str)
         audio_list = []
 
         pdf.cell(100, 10.5, '=================')
@@ -177,5 +178,5 @@ while(1):
     if cnt >= (count_per_practice * total_practice):
         break
 
-pdf.output("math_problems.pdf")
+pdf.output("%s.pdf"%(file_name))
 
